@@ -5,8 +5,10 @@
 #include <msclr/marshal_cppstd.h>
 #include <iostream>
 #include <string>
+#include <vector>
 #using <System.dll>
 #using <System.Management.Automation.dll>
+#using <System.Core.dll>
 
 using namespace std;
 using namespace System;
@@ -14,6 +16,14 @@ using namespace System::Collections::ObjectModel;
 using namespace System::Management::Automation;
 using namespace System::Runtime::InteropServices;
 
+std::string retrievefn(Collection<PSObject^>^ a) {
+    std::string res;
+    for (int i = 0; i < a->Count; i++) {
+        System::String^ res2 = a[i]->ToString();
+        res = msclr::interop::marshal_as<std::string>(res2);
+    }
+    return res;
+}
 
 int main()
 {
@@ -26,10 +36,26 @@ int main()
         std::string res = msclr::interop::marshal_as<std::string>(res2);
         std::cout << res << std::endl;
     }
-    
+    std::vector<std::string> dynamic_fill;
+    ps = PowerShell::Create();
+    ps->AddScript(gcnew String("(Get-WmiObject -Namespace root\\wmi -Query \"Select DesignedCapacity From BatteryStaticData\").DesignedCapacity"));
+    auto result2 = ps->Invoke();
+    dynamic_fill.push_back(retrievefn(result2));
+    ps->AddScript(gcnew String("(Get-WmiObject -Namespace root\\wmi -Query \"Select FullChargedCapacity From BatteryFullChargedCapacity\").FullChargedCapacity"));
+    result2 = ps->Invoke();
+    dynamic_fill.push_back(retrievefn(result2));
+    if (dynamic_fill.size() >= 2) {
+        std::cout << "Designed Capacity is: " << dynamic_fill[0] << std::endl;
+        std::cout << "Full Charged Capacity is: " << dynamic_fill[1] << std::endl;
+    }
+    else {
+        std::cout << "Failed to retrieve both values." << std::endl;
+    }
    
     return 0;
 }
+
+
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
 // Debug program: F5 or Debug > Start Debugging menu

@@ -15,9 +15,22 @@ This is the PowerShell Output.
 
 ![PowerShell Example](example2PowerShell.png)
 
+# Latest Integration FullChargedCapacity and DesignedCapacity Fetcher
+## 2025-05-16
+
+In this latest version I have created a function in C++ that facilites the PowerShell commands output and returns the string of the results.
+
+![C++ Terminal Output](OutputFromTerminal.png)
+
 # Future Work
 
 I do see the differences and will in future commits see why there differences.
+
+## Updated 2025-05-16
+
+- Be able to support two batteries.
+- Be able to support Linux.
+- Deploy onto another PC and validate it works.
 
 ## Acknowledgements
 

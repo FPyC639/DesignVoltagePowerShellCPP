@@ -3,7 +3,7 @@
 
 This console application retrieves the Design Voltage from a single battery in a computer. This program is written in C++, and it interfaces with C++ to obtain the result from PowerShell. The PowerShell Command is 
 ```PowerShell
-Get-WmiObject Win32_Battery | Select DesignVoltage).DesignVoltage
+(Get-WmiObject Win32_Battery | Select DesignVoltage).DesignVoltage
 ```
 In lieu of this I plan to play around with this and see what other things I can do with this knowledge.
 
@@ -20,7 +20,14 @@ This is the PowerShell Output.
 
 In this latest version I have created a function in C++ that facilites the PowerShell commands output and returns the string of the results.
 
+
 ![C++ Terminal Output](OutputFromTerminal.png)
+
+# Latest Integration CLR C++/CLI DLL and ASP.NET Web API
+
+In this commit I have decided to explore creating a Dyanmic Link Library, and creating a ASP.NET Web API it has been insightful in the sense that I have learned how object oriented C++ is in addition to how .NET String returns can be used in ASP.NET to output in my case the DesignedCapacity as an API call running on my localhost.
+
+![ASP.NET API Call](OutputfromRESTFULAPI.png)
 
 # Future Work
 
@@ -31,6 +38,7 @@ I do see the differences and will in future commits see why there differences.
 - Be able to support two batteries.
 - Be able to support Linux.
 - Deploy onto another PC and validate it works.
+
 
 ## Acknowledgements
 
